@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Join room</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <input type="text" id="name" maxlength="15" placeholder="username">
+    
+    <input type="text" id="text" maxlength="30" placeholder="Room name">
+
+    <button onclick="joinRoom()">Join room</button>
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    function joinRoom()
+    {
+        rn = document.getElementById("text").value
+        user = document.getElementById("name").value
+
+        $.ajax({
+            url:"/joinroom",
+            type: "POST",
+            dataType: "json",
+            data : {
+                Roomname : rn,
+                user: user
+            },
+        });
+        $.ajax({
+            url:"/chat",
+            type: "POST",
+            dataType: "json",
+            data : {
+                room : rn,
+                user: user
+            },
+        });
+        location.href = "/chat"
+    }
+</script>
+</html>
